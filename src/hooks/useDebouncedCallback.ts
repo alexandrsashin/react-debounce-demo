@@ -1,8 +1,7 @@
 import { useRef, useMemo, useEffect } from "react";
 import debounce from "lodash/debounce";
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export function useDebouncedCallback<T extends (...args: any[]) => any>(
+export function useDebouncedCallback<T extends (...args: unknown[]) => unknown>(
   callback: T,
   delay: number
 ) {
