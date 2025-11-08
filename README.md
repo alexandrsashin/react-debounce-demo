@@ -1,56 +1,105 @@
 # React Debounce Demo
 
-Демонстрационный проект, показывающий использование debounce из lodash в React компонентах.
+A demonstration project showing the use of debounce from lodash in React components with a custom hook implementation.
 
-## Описание
+## Description
 
-Проект демонстрирует:
+The project demonstrates:
 
-- Использование `debounce` из библиотеки lodash для оптимизации вызовов функций
-- Управление таймером с помощью React hooks
-- Динамическое монтирование/размонтирование компонентов
-- Изменение стилей компонента при взаимодействии
+- Using `debounce` from the lodash library to optimize function calls
+- Managing a timer using React hooks
+- Dynamic mounting/unmounting of components
+- Changing component styles on interaction
+- Custom React hook (`useDebouncedCallback`) for reusable debounce logic
+- Proper cleanup of debounced functions on component unmount
 
-## Функциональность
+## Project Structure
 
-### Компонент App
+### Components
 
-- Отображает таймер, который считает секунды
-- Управляет дочерним компонентом `DebouncedAction`
-- Реализует логику запуска таймера через `handleStart`
+#### App Component
 
-### Компонент DebouncedAction
+- Displays a timer that counts seconds
+- Manages two demo components: `DebouncedAction` and `AdvancedDebouncedAction`
+- Implements timer start logic via `handleStart`
 
-- **Кнопка Start**: Запускает таймер и меняет цвет фона компонента (с debounce эффектом 5 секунд)
-- **Кнопка Unmount**: Размонтирует компонент и останавливает таймер
-- Логика debounce инкапсулирована внутри компонента
+#### DebouncedAction Component
 
-## Технологии
+- **Start Button**: Starts the timer and changes the component's background color (with a 5-second debounce effect)
+- **Unmount Button**: Unmounts the component (timer continues running)
+- Debounce logic is encapsulated inside the component
 
-- React 18
+#### AdvancedDebouncedAction Component
+
+- Similar to `DebouncedAction` but uses the custom `useDebouncedCallback` hook
+- Demonstrates proper cancellation of pending debounced actions on unmount
+- Shows best practices for debounce in React
+
+### Custom Hook
+
+#### useDebouncedCallback
+
+A reusable hook that creates a debounced version of a callback function with:
+
+- Automatic cleanup on component unmount
+- Support for callback updates without resetting the debounce timer
+- TypeScript support with proper typing
+- Memory-efficient implementation using refs
+
+## Technologies
+
+- React 19
 - TypeScript
 - Vite
 - Lodash (debounce)
+- Vitest (testing framework)
+- React Testing Library
 
-## Установка и запуск
+## Installation and Running
 
 ```bash
-# Установка зависимостей
+# Install dependencies
 npm install
 
-# Запуск dev сервера
+# Run dev server
 npm run dev
 
-# Сборка для продакшена
+# Build for production
 npm run build
+
+# Run tests
+npm test
+
+# Run tests with coverage
+npm run test:coverage
 ```
 
-## Как это работает
+## How It Works
 
-При нажатии на кнопку "Start":
+When you click the "Start" button:
 
-1. Немедленно запускается таймер
-2. Изменение цвета фона происходит с задержкой 5 секунд (debounce)
-3. Если быстро нажимать кнопку несколько раз, цвет изменится только один раз через 5 секунд после последнего нажатия
+1. The timer starts immediately
+2. The background color change happens with a 5-second delay (debounce)
+3. If you quickly click the button multiple times, the color will change only once, 5 seconds after the last click
 
-Это демонстрирует, как debounce помогает оптимизировать частые вызовы функций.
+This demonstrates how debounce helps optimize frequent function calls.
+
+### Advanced Features
+
+The `AdvancedDebouncedAction` component showcases:
+
+- **Automatic cleanup**: When you click "Unmount" before the debounce delay expires, the pending action is cancelled
+- **Latest callback execution**: If the callback changes during the debounce delay, the most recent version will be executed
+- **Memory safety**: No memory leaks or stale closures
+
+## Testing
+
+The project includes comprehensive tests for the `useDebouncedCallback` hook covering:
+
+- Basic debounce functionality
+- Callback updates during debounce delay
+- Reference stability across re-renders
+- Proper cleanup on component unmount
+- Multiple rapid callback changes
+
+Run tests with: `npm test`

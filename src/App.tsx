@@ -1,10 +1,12 @@
 import { useState, useRef, useEffect } from "react";
 import DebouncedAction from "./DebouncedAction";
+import AdvancedDebouncedAction from "./AdvancedDebouncedAction";
 import "./App.css";
 
 function App() {
   const [timer, setTimer] = useState(0);
   const [showComponent, setShowComponent] = useState(true);
+  const [showAdvancedComponent, setShowAdvancedComponent] = useState(true);
   const intervalRef = useRef<number | null>(null);
 
   const startTimer = () => {
@@ -23,9 +25,10 @@ function App() {
 
   const handleUnmount = () => {
     setShowComponent(false);
-    if (intervalRef.current !== null) {
-      clearInterval(intervalRef.current);
-    }
+  };
+
+  const handleAdvancedUnmount = () => {
+    setShowAdvancedComponent(false);
   };
 
   useEffect(() => {
@@ -42,10 +45,19 @@ function App() {
         <h1>React Debounce Demo</h1>
         <div className="card">
           <h2>Timer: {timer} seconds</h2>
+
           {showComponent && (
             <DebouncedAction onStart={handleStart} onUnmount={handleUnmount} />
           )}
-          {!showComponent && <p>Component was unmounted</p>}
+          {!showComponent && <p>Basic component was unmounted</p>}
+
+          {showAdvancedComponent && (
+            <AdvancedDebouncedAction
+              onStart={handleStart}
+              onUnmount={handleAdvancedUnmount}
+            />
+          )}
+          {!showAdvancedComponent && <p>Advanced component was unmounted</p>}
         </div>
       </div>
     </>
