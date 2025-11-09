@@ -11,10 +11,7 @@ describe("useDebouncedCallback", () => {
   });
 
   it("should debounce the callback", async () => {
-    let callCount = 0;
-    const callback = () => {
-      callCount++;
-    };
+    const callback = vi.fn();
 
     const { result } = renderHook(() => useDebouncedCallback(callback, 100));
 
@@ -22,11 +19,11 @@ describe("useDebouncedCallback", () => {
     result.current();
     result.current();
 
-    expect(callCount).toBe(0);
+    expect(callback).not.toHaveBeenCalled();
 
     await vi.advanceTimersByTimeAsync(150);
 
-    expect(callCount).toBe(1);
+    expect(callback).toHaveBeenCalledTimes(1);
   });
 
   it("should use the latest callback when debounced function is called", async () => {
@@ -127,10 +124,7 @@ describe("useDebouncedCallback", () => {
   });
 
   it("should cancel pending debounced callback on unmount", async () => {
-    let callCount = 0;
-    const callback = () => {
-      callCount++;
-    };
+    const callback = vi.fn();
 
     const { result, unmount } = renderHook(() =>
       useDebouncedCallback(callback, 100)
@@ -138,14 +132,12 @@ describe("useDebouncedCallback", () => {
 
     result.current();
 
-    expect(callCount).toBe(0);
-
     // Unmount before debounce executes
     unmount();
 
     await vi.advanceTimersByTimeAsync(150);
 
     // Callback should NOT have been called
-    expect(callCount).toBe(0);
+    expect(callback).not.toHaveBeenCalled();
   });
 });
