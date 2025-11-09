@@ -10,7 +10,7 @@ The project demonstrates:
 - Managing a timer using React hooks
 - Dynamic mounting/unmounting of components
 - Changing component styles on interaction
-- Custom React hook (`useDebouncedCallback`) for reusable debounce logic
+- Custom React hook (`useDebounceCallback`) for reusable debounce logic
 - Proper cleanup of debounced functions on component unmount
 
 ## Project Structure
@@ -31,13 +31,13 @@ The project demonstrates:
 
 #### AdvancedDebouncedAction Component
 
-- Similar to `DebouncedAction` but uses the custom `useDebouncedCallback` hook
+- Similar to `DebouncedAction` but uses the custom `useDebounceCallback` hook
 - Demonstrates proper cancellation of pending debounced actions on unmount
 - Shows best practices for debounce in React
 
 ### Custom Hook
 
-#### useDebouncedCallback
+#### useDebounceCallback
 
 A reusable hook that creates a debounced version of a callback function with:
 
@@ -94,7 +94,7 @@ The `AdvancedDebouncedAction` component showcases:
 
 ## Testing
 
-The project includes comprehensive tests for the `useDebouncedCallback` hook covering:
+The project includes comprehensive tests for the `useDebounceCallback` hook covering:
 
 - Basic debounce functionality
 - Callback updates during debounce delay

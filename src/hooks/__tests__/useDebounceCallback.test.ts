@@ -1,7 +1,7 @@
 import { renderHook } from "@testing-library/react";
-import { useDebouncedCallback } from "./useDebouncedCallback";
+import { useDebounceCallback } from "../useDebounceCallback";
 
-describe("useDebouncedCallback", () => {
+describe("useDebounceCallback", () => {
   beforeEach(() => {
     vi.useFakeTimers();
   });
@@ -13,7 +13,7 @@ describe("useDebouncedCallback", () => {
   it("should debounce the callback", async () => {
     const callback = vi.fn();
 
-    const { result } = renderHook(() => useDebouncedCallback(callback, 100));
+    const { result } = renderHook(() => useDebounceCallback(callback, 100));
 
     result.current();
     result.current();
@@ -36,7 +36,7 @@ describe("useDebouncedCallback", () => {
     };
 
     const { result: hookResult, rerender } = renderHook(
-      ({ callback, delay }) => useDebouncedCallback(callback, delay),
+      ({ callback, delay }) => useDebounceCallback(callback, delay),
       { initialProps: { callback: callback1, delay: 100 } }
     );
 
@@ -56,7 +56,7 @@ describe("useDebouncedCallback", () => {
     };
 
     const { result, rerender } = renderHook(
-      ({ callback, delay }) => useDebouncedCallback(callback, delay),
+      ({ callback, delay }) => useDebounceCallback(callback, delay),
       { initialProps: { callback, delay: 100 } }
     );
 
@@ -79,7 +79,7 @@ describe("useDebouncedCallback", () => {
     };
 
     const { result: hookResult, rerender } = renderHook(
-      ({ callback, delay }) => useDebouncedCallback(callback, delay),
+      ({ callback, delay }) => useDebounceCallback(callback, delay),
       { initialProps: { callback: callback1, delay: 100 } }
     );
 
@@ -109,7 +109,7 @@ describe("useDebouncedCallback", () => {
     ];
 
     const { result: hookResult, rerender } = renderHook(
-      ({ callback, delay }) => useDebouncedCallback(callback, delay),
+      ({ callback, delay }) => useDebounceCallback(callback, delay),
       { initialProps: { callback: callbacks[0], delay: 100 } }
     );
 
@@ -127,7 +127,7 @@ describe("useDebouncedCallback", () => {
     const callback = vi.fn();
 
     const { result, unmount } = renderHook(() =>
-      useDebouncedCallback(callback, 100)
+      useDebounceCallback(callback, 100)
     );
 
     result.current();

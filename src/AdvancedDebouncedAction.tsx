@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useDebouncedCallback } from "./hooks/useDebouncedCallback";
+import { useDebounceCallback } from "./hooks/useDebounceCallback";
 
 interface AdvancedDebouncedActionProps {
   onStart: () => void;
@@ -12,7 +12,7 @@ function AdvancedDebouncedAction({
 }: AdvancedDebouncedActionProps) {
   const [bgColor, setBgColor] = useState("#ffffff");
 
-  const debouncedPaint = useDebouncedCallback(() => {
+  const debouncedPaint = useDebounceCallback(() => {
     console.log("Changing background color (Advanced)");
     const randomColor = "#" + Math.floor(Math.random() * 16777215).toString(16);
     setBgColor(randomColor);
